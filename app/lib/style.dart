@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Style {
   // Primary Colors
   static const Color white = Colors.white;
-  static const Color yellow = Color(0xffFFFC00);
+  static const Color yellow = Color(0xffEAB64D);
   static const Color black = Colors.black;
 
   // Navbar Colors
@@ -24,19 +24,11 @@ class Style {
   static const Color grayText = Color(0xff8f8f8f);
 
   // Icon colors
-  static Color cameraPageBackground = Colors.black.withOpacity(0.4);
+  static Color cameraPageBackground = Color(0xff127C56).withOpacity(0.5);
   static const Color cameraPageIconColor = Colors.white;
   static const Color otherPageBackground = Color(0xffE9EDF0);
   static const Color otherPageIconColor = Color(0xff646E7A);
 
-  // For fake stories
-  static const List<Color> tempColors = [
-    Colors.redAccent,
-    Colors.deepPurple,
-    Colors.black,
-    Colors.green,
-    Colors.pinkAccent,
-    Colors.blueAccent,
-    Colors.deepOrange,
-  ];
+  static const Color btngreen = Color(0xff127C56);
+  static const Color inputgreen = Color.fromARGB(255, 75, 236, 177);
 }

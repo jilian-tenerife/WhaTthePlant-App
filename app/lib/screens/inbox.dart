@@ -1,5 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:app/style.dart';
+import 'dart:ui';
+
+import '../style.dart';
 
 class Inbox extends StatefulWidget {
   const Inbox({Key? key}) : super(key: key);
@@ -22,62 +25,185 @@ class _inbox extends State<Inbox> {
               child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Chats"),
-                searchBox(),
-                Text("Top Friend Planter"),
+                Center(
+                    child: Row(children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                    child: searchBox(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                        width: 50,
+                        height: 50,
+                        child: Icon(Icons.person_add),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white.withOpacity(.5))),
+                  )
+                ])),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(18, 8, 0, 0),
+                  child: Text(
+                    "Top Friend Planter",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 28),
+                    textAlign: TextAlign.start,
+                  ),
+                ),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        color: Style.inputgreen,
-                        width: 100,
-                        height: 100,
+                      friends(
+                        name: 'Garfield',
                       ),
-                      Container(
-                        color: Style.btngreen,
-                        width: 100,
-                        height: 100,
+                      friends(
+                        name: 'Greg',
                       ),
-                      Container(
-                        color: Style.inputgreen,
-                        width: 100,
-                        height: 100,
+                      friends(
+                        name: 'Garfield Greg',
                       ),
-                      Container(
-                        color: Style.btngreen,
-                        width: 100,
-                        height: 100,
+                      friends(
+                        name: 'Garfield',
                       ),
-                      Container(
-                        color: Style.inputgreen,
-                        width: 100,
-                        height: 100,
-                      )
+                      friends(
+                        name: 'Greg',
+                      ),
+                      friends(
+                        name: 'Garfield Greg',
+                      ),
                     ],
                   ),
                 ),
-                SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          ToDoItem(),
-                          ToDoItem(),
-                          ToDoItem(),
-                          ToDoItem(),
-                          ToDoItem(),
-                          ToDoItem(),
-                          ToDoItem(),
-                        ]))
+                Expanded(
+                  child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            message(name: 'Garfield'),
+                            message(name: 'Garfield'),
+                            message(name: 'Garfield'),
+                            message(name: 'Garfield'),
+                            message(name: 'Garfield'),
+                            message(name: 'Garfield'),
+                          ])),
+                ),
               ],
             ),
           )),
         ));
+  }
+}
+
+class friends extends StatelessWidget {
+  final name;
+  const friends({
+    required this.name,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: new ClipRect(
+        child: new BackdropFilter(
+          filter: new ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+          child: Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(18),
+                  color: Colors.grey.shade200.withOpacity(0.1)),
+              width: 100,
+              height: 100,
+              child: Column(
+                children: [
+                  SizedBox(height: 20),
+                  CircleAvatar(
+                    radius: 25, // Image radius
+                    backgroundImage: AssetImage('assets/gradpic.jpeg'),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Text(
+                      '$name',
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                  )
+                ],
+              )),
+        ),
+      ),
+    );
+  }
+}
+
+class message extends StatelessWidget {
+  final name;
+  const message({
+    required this.name,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: new ClipRect(
+        child: new BackdropFilter(
+          filter: new ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+          child: Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(18),
+                  color: Colors.grey.shade300.withOpacity(0.2)),
+              width: 700,
+              height: 100,
+              child: Row(
+                children: [
+                  SizedBox(width: 20),
+                  CircleAvatar(
+                    radius: 25, // Image radius
+                    backgroundImage: AssetImage('assets/gradpic.jpeg'),
+                  ),
+                  SizedBox(width: 20),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Text(
+                        '$name',
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.left,
+                      ),
+                      Text(
+                        'New chat! Tap to view',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ],
+                  ),
+                  SizedBox(width: 300),
+                  Icon(
+                    Icons.message_rounded,
+                    color: Colors.white,
+                  ),
+                ],
+              )),
+        ),
+      ),
+    );
   }
 }
 
@@ -131,9 +257,11 @@ class ToDoItem extends StatelessWidget {
 
 Widget searchBox() {
   return Container(
+    width: 510,
     padding: EdgeInsets.symmetric(horizontal: 15),
     decoration: BoxDecoration(
-        color: Colors.white, borderRadius: BorderRadius.circular(0)),
+        color: Colors.white.withOpacity(.5),
+        borderRadius: BorderRadius.circular(18)),
     child: TextField(
       decoration: InputDecoration(
         contentPadding: EdgeInsets.all(0),
@@ -144,7 +272,7 @@ Widget searchBox() {
         ),
         prefixIconConstraints: BoxConstraints(maxHeight: 20, minWidth: 25),
         border: InputBorder.none,
-        hintText: 'Gipangita?',
+        hintText: ' ',
         hintStyle: TextStyle(color: Style.btngreen),
       ),
     ),
@@ -156,12 +284,12 @@ AppBar _buildAppBar() {
     automaticallyImplyLeading: false,
     backgroundColor: Colors.transparent,
     elevation: 0,
-    title: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+    title: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
       Container(
-          height: 50,
+          height: 60,
           width: 310,
           child: Text(
-            "chat",
+            "Chat",
             style: TextStyle(fontSize: 50, color: Colors.white),
           ) /*ClipRRect(
               borderRadius: BorderRadius.circular(20),

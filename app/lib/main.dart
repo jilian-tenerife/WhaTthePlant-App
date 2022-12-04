@@ -1,6 +1,6 @@
 import 'package:app/screens/camera_screen.dart';
 import 'package:app/screens/login.dart';
-import 'package:app/screens/temporary_screens.dart';
+import 'package:app/screens/settings.dart';
 import 'package:app/style.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
@@ -108,7 +108,7 @@ class _MainPageState extends State<MainPage> {
               Inbox(),
               CameraScreen(
                   cameraController: _cameraController, initCamera: initCamera),
-              TemporaryScreen(color: _colors[2]),
+              Settings(),
             ],
           ),
           Padding(
